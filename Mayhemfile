@@ -1,0 +1,5 @@
+project: rnshah9/mayhem-nxdk
+target: vp20compiler
+
+cmds:
+  - cmd: /nxdk/tools/vp20compiler/vp20compiler @@
