@@ -7,3 +7,12 @@ ADD . /nxdk
 WORKDIR /nxdk
 RUN make tools
 ENV PATH=$PATH:/usr/lib/llvm-10/bin
+
+RUN mkdir -p /deps
+RUN ldd /nxdk/tools/vp20compiler/vp20compiler | tr -s '[:blank:]' '\n' | grep '^/' | xargs -I % sh -c 'cp % /deps;'
+
+FROM ubuntu:20.04 as package
+
+COPY --from=builder /deps /deps
+COPY --from=builder /nxdk/tools/vp20compiler/vp20compiler /nxdk/tools/vp20compiler/vp20compiler
+ENV LD_LIBRARY_PATH=/deps
