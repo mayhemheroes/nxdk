@@ -1,0 +1,5 @@
+project: nxdk
+target: vp20compiler
+
+cmds:
+  - cmd: /vp20compiler @@

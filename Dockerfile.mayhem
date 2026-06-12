@@ -1,0 +1,11 @@
+# Build Stage
+FROM --platform=linux/amd64 ubuntu:20.04 as builder
+RUN apt-get update
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y clang bison flex lld g++ make cmake
+
+COPY . /nxdk
+WORKDIR /nxdk
+RUN make tools
+
+FROM ubuntu:20.04 as package
+COPY --from=builder /nxdk/tools/vp20compiler/vp20compiler /
