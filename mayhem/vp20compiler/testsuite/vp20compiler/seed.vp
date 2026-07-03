@@ -1,0 +1,20 @@
+!!VP1.1
+#program main
+#profile vp20
+    MOV o[TEX0], v[8];
+    MUL R0, v[2].y, c[5];
+    MAD R0, v[2].x, c[4], R0;
+    MAD R0, v[2].z, c[6], R0;
+    MAD R0, v[2].w, c[7], R0;
+    DP4 R0.x, R0, c[8];
+    MAX R0.x, R0.x, c[12].x;
+    MUL o[COL0], c[9], R0.x;
+    MUL R0, v[0].y, c[1];
+    MAD R0, v[0].x, c[0], R0;
+    MAD R0, v[0].z, c[2], R0;
+    ADD R1, R0, c[3];
+    RCP R0.x, R1.w;
+    MUL R1.xyz, R1.xyzx, R0.x;
+    MOV R0, c[10];
+    MAD o[HPOS], R1, R0, c[11];
+END

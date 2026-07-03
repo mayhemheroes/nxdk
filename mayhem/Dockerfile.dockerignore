@@ -1,0 +1,25 @@
+# Per-Dockerfile build-context filter for the commit image (BuildKit uses
+# `<dockerfile-path>.dockerignore` — this file — IN PLACE OF the repo-root
+# `.dockerignore` when building with `-f mayhem/Dockerfile`).
+#
+# Upstream nxdk ships a root `.dockerignore` that excludes `**/.git` (for its
+# own image). Our spec REQUIRES baking the FULL repo incl. `.git` history into
+# the commit image (the grader/PATCH tier uses it — SPEC §6.2 item 2), so we
+# override that here WITHOUT touching the upstream-tracked file (keeps the
+# mayhem layer a clean additive replay).
+#
+# Keep .git and source; drop only local build artifacts and editor/OS cruft.
+
+# ── Build outputs / local cruft ──────────────────────────────────────────────
+mayhem-build/
+mayhem-tests/
+*.o
+*.a
+*.so
+*.dylib
+**/__pycache__/
+
+# ── Editor / OS noise ────────────────────────────────────────────────────────
+.DS_Store
+*.swp
+*~

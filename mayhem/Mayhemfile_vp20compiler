@@ -1,0 +1,8 @@
+project: nxdk
+target: vp20compiler
+testsuite:
+  - https://$MAYHEM_DOMAIN/$MAYHEM_PROJECT/$MAYHEM_TARGET/testsuite.tar
+  - file://mayhem/vp20compiler/testsuite
+
+cmds:
+  - cmd: /mayhem/tools/vp20compiler/vp20compiler @@
